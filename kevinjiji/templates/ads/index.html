@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Ads{% endblock %}</h1>
+{% if g.user %}
+<a class="action" href="{{ url_for('ads.create') }}">New</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% for ad in ads %}
+<article class="ad">
+    <header>
+        <div>
+            <h1><a class="title" href="{{ url_for('ads.view', id=ad['id']) }}">{{ ad['title'] }}</a></h1>
+            <div class="about">by {{ ad['username'] }} on {{ ad['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        <a class="action" href="{{ url_for('ads.view', id=ad['id']) }}">View</a>
+        {% if g.user['id'] == ad['user_id'] %}
+        <a class="action" href="{{ url_for('ads.update', id=ad['id']) }}">Edit</a>
+        {% endif %}
+    </header>
+    <p class="description">{{ ad['description'] }}</p>
+</article>
+{% if not loop.last %}
+<hr>
+{% endif %}
+{% endfor %}
+{% endblock %}

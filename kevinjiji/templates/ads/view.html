@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}{{ ad['title'] }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <h3>Description</h3>
+    <div>{{ ad['description'] }}</div>
+    <div class="contact">
+        <a href="mailto:{{ ad['email'] }}">Contact</a>
+    </div>
+{% endblock %}
